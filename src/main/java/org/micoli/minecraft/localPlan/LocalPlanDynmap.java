@@ -53,23 +53,22 @@ public class LocalPlanDynmap extends DynmapWorldGuardPlugin {
 	 */
 	@Override
 	public String formatInfoWindow(ProtectedRegion region, AreaMarker m) {
-
 		String v = "<div class=\"regioninfo\">" + this.infowindow + "</div>";
 		v = v.replace("%regionname%", m.getLabel());
-		v = v.replace("%price%", String.format("%01.2f", this.lastParcel.getPrice()));
-		v = v.replace("%status%", this.lastParcel.getBuyStatus().toString());
+		v = v.replace("%price%", String.format("%01.2f", this.lastParcel==null?0:this.lastParcel.getPrice()));
+		v = v.replace("%status%", this.lastParcel==null?"---":this.lastParcel.getBuyStatus().toString());
 
 		StringBuilder strPlayers = new StringBuilder();
 
 		Set<String> output = region.getOwners().getPlayers();
 		for (Iterator<String> it = output.iterator(); it.hasNext();) {
 			String name = it.next();
-			strPlayers.append(name+"&nbsp;<img src='tiles/faces/16x16/" + name + ".png' />");
+			strPlayers.append(name + "&nbsp;<img src='tiles/faces/16x16/" + name + ".png' />");
 			if (it.hasNext()) {
 				strPlayers.append(", ");
 			}
 		}
-		
+
 		v = v.replace("%playerowners%", strPlayers);
 		// v = v.replace("%playerowners%",
 		// region.getOwners().toPlayersString());
@@ -80,7 +79,7 @@ public class LocalPlanDynmap extends DynmapWorldGuardPlugin {
 		v = v.replace("%priority%", "");
 
 		String flgs = "";
-		if(withFlags){
+		if (withFlags) {
 			Map<Flag<?>, Object> map = region.getFlags();
 			for (Flag<?> f : map.keySet()) {
 				flgs += f.getName() + ": " + map.get(f).toString() + "<br/>";
@@ -93,32 +92,33 @@ public class LocalPlanDynmap extends DynmapWorldGuardPlugin {
 	@Override
 	protected void addStyle(String resid, String worldid, AreaMarker m, ProtectedRegion region) {
 		this.lastParcel = localPlan.getParcel(worldid, region.getId());
-		
+
 		super.addStyle(resid, worldid, m, region);
-		
-		int fillColor = 0;
-		int lineColor = 0;
-		switch (this.lastParcel.getBuyStatus()){
+
+		if (this.lastParcel != null) {
+			int fillColor = 0;
+			int lineColor = 0;
+			switch (this.lastParcel.getBuyStatus()) {
 			case BUYABLE:
 				fillColor = Integer.parseInt("#008000".substring(1), 16);
-			break;	
+				break;
 			case UNBUYABLE:
 				fillColor = Integer.parseInt("#AA0000".substring(1), 16);
-			break;	
-		}
-		switch(this.lastParcel.getOwnerType()){
-			case PLAYER :
+				break;
+			}
+			switch (this.lastParcel.getOwnerType()) {
+			case PLAYER:
 				lineColor = Integer.parseInt("#008000".substring(1), 16);
-			break;
+				break;
 			case FACTION:
 				lineColor = Integer.parseInt("#008000".substring(1), 16);
-			break;
+				break;
 			case STATE:
 				lineColor = Integer.parseInt("#008000".substring(1), 16);
-			break;
+				break;
+			}
+			m.setLineStyle(1, 0.35, lineColor);
+			m.setFillStyle(0.35, fillColor);
 		}
-		m.setLineStyle(1, 0.35, lineColor);
-		m.setFillStyle(0.35, fillColor);
 	}
-
 }
