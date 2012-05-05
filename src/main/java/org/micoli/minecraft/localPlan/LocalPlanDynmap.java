@@ -117,7 +117,7 @@ public class LocalPlanDynmap extends DynmapWorldGuardPlugin {
 				lineColor = Integer.parseInt("#008000".substring(1), 16);
 				break;
 			}
-			m.setLineStyle(1, 0.35, lineColor);
+			m.setLineStyle(1, 0.80, lineColor);
 			m.setFillStyle(0.35, fillColor);
 		}
 	}
