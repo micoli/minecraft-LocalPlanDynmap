@@ -41,7 +41,7 @@
 			<version>5.5.2-SNAPSHOT</version>
 			<!-- mvn install:install-file -Dfile=worldguard-5.5.2-SNAPSHOT.jar -DgroupId=com.sk89q  -DartifactId=worldguard -Dversion=5.5.2-SNAPSHOT -Dpackaging=jar -->
 			<!-- mvn install:install-file -Dfile=worldedit-5.3-SNAPSHOT.jar -DgroupId=com.sk89q -DartifactId=worldedit -Dversion=5.3-SNAPSHOT -Dpackaging=jar -->
-			<!-- mvn install:install-file -Dfile=Dynmap-WorldGuard-0.17.jar -DgroupId=org.dynmap -DartifactId=Dynmap-WorldGuard -Dversion=0.17 -Dpackaging=jar --> -->
+			<!-- mvn install:install-file -Dfile=Dynmap-WorldGuard-0.17.jar -DgroupId=org.dynmap -DartifactId=Dynmap-WorldGuard -Dversion=0.17 -Dpackaging=jar -->
 		</dependency>
 		<dependency>
 			<groupId>com.sk89q</groupId>
